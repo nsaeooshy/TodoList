@@ -6,7 +6,7 @@ require('express-paginate');
 router.get('/', async (req,res)=>{
     const { page = 1, limit = 8 } = req.query;
     try {
-        const tasks = await Task.find()
+        const tasks = await Task.find().select('-description')
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .exec();
