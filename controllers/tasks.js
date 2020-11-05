@@ -64,11 +64,18 @@ router.patch('/:id', async(req,res)=>{
     }
 })
 
-router.patch('/:id/hide',(req,res)=>{
+router.patch('/:id/hide_toggle',async(req,res)=>{
+    try{
+        const task = await Task.findOne({_id:req.params.id});
+        const updatedTask = await Task.updateOne({_id : req.params.id},{$set:{is_hidden:!task.is_hidden}});
+        res.json(updatedTask);
 
+    }catch(err){
+        res.json({message:err});
+    }
 })
 
-router.patch('/:id/complete',(req,res)=>{
+router.patch('/:id/complete_toggle',(req,res)=>{
     
 })
 
