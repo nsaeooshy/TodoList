@@ -25,6 +25,16 @@ router.get('/:id',(req,res)=>{
 })
 
 router.post('/',async(req,res)=>{
+    const task = new Task({
+        heading: req.body.heading,
+        description : req.body.description
+    });
+    try{
+        const savedTask = await task.save();
+        res.json(savedTask);
+    } catch(err){
+        res.json({message:err});
+    }
 })
 
 router.delete('/:id',(req,res)=>{
