@@ -21,7 +21,13 @@ router.get('/', async (req,res)=>{
     }
 })
 
-router.get('/:id',(req,res)=>{
+router.get('/:id', async (req,res)=>{
+    try{
+        const task = await Task.findById(req.params.id);
+        res.json(task);
+    }catch(err){
+        res.json({message:err})
+    }
 })
 
 router.post('/',async(req,res)=>{
