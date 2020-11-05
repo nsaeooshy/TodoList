@@ -51,6 +51,14 @@ router.delete('/:id',async(req,res)=>{
         res.json({message:err});
     }
 })
+router.delete('/',async(req,res)=>{
+    try{
+        deletedTasks = await Task.remove({});
+        res.json(deletedTasks);
+    }catch(err){
+        res.json({message:err});
+    }
+})
 
 router.patch('/:id', async(req,res)=>{
     try{
