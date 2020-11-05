@@ -52,7 +52,16 @@ router.delete('/:id',async(req,res)=>{
     }
 })
 
-router.patch('/:id',(req,res)=>{
+router.patch('/:id', async(req,res)=>{
+    try{
+        const updatedTask = await Task.findOneAndUpdate({_id : req.params.id},{$set: req.body});
+        const updatedDateTask = await Task.findOneAndUpdate({_id : req.params.id},{$set:{date:Date.now()}
+    });
+        res.json(updatedDateTask);
+
+    }catch(err){
+        res.json({message:err});
+    }
 })
 
 router.patch('/:id/hide',(req,res)=>{
