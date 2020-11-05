@@ -1,15 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const Task = this.require('../models/Task');
+const Task = require('../models/Task');
+require('express-paginate');
 
-
-router.get('/',(req,res)=>{
+router.get('/', async (req,res)=>{
+    const { page = 1, limit = 8 } = req.query;
+    try {
+        const tasks = await Task.find()
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+        const count = await Task.countDocuments();
+        res.json({
+        tasks,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      });
+    } catch (err){
+        res.json({message: err})
+    }
 })
 
 router.get('/:id',(req,res)=>{
 })
 
-router.post('/',(req,res)=>{
+router.post('/',async(req,res)=>{
 })
 
 router.delete('/:id',(req,res)=>{
