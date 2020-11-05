@@ -9,11 +9,14 @@ require('dotenv/config');
 app.use(bodyParser.json());
 
 //Routes
-app.use('/tasks',tasksRoute);
+app.use('/tasks', tasksRoute);
 
 
 //DB connection
-mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
+mongoose.connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, () => {
     console.log('connected');
 })
 
