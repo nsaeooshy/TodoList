@@ -43,7 +43,13 @@ router.post('/',async(req,res)=>{
     }
 })
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',async(req,res)=>{
+    try{
+        deletedTask = await Task.remove({_id:req.params.id});
+        res.json(deletedTask);
+    }catch(err){
+        res.json({message:err});
+    }
 })
 
 router.patch('/:id',(req,res)=>{
