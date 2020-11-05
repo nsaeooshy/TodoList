@@ -10,7 +10,10 @@ const TaskSchema = mongoose.Schema({
         type:Boolean,
         default:false
     },
-    is_hidden: Boolean,
+    is_hidden: {
+        type:Boolean,
+        default:false
+    },
     date : {
         type:Date,
         default:Date.now()
