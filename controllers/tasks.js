@@ -75,8 +75,15 @@ router.patch('/:id/hide_toggle',async(req,res)=>{
     }
 })
 
-router.patch('/:id/complete_toggle',(req,res)=>{
-    
+router.patch('/:id/complete_toggle', async(req,res)=>{
+    try{
+        const task = await Task.findOne({_id:req.params.id});
+        const updatedTask = await Task.updateOne({_id : req.params.id},{$set:{is_completed:!task.is_completed}});
+        res.json(updatedTask);
+
+    }catch(err){
+        res.json({message:err});
+    } 
 })
 
 module.exports =  router;
